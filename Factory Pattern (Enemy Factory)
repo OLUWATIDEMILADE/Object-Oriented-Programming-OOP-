@@ -1,0 +1,42 @@
+using UnityEngine;
+
+// Abstract Product
+public abstract class Enemy
+{
+    public abstract void Attack();
+}
+
+// Concrete Products
+public class Zombie : Enemy
+{
+    public override void Attack() => Debug.Log("Zombie attacks!");
+}
+
+public class Robot : Enemy
+{
+    public override void Attack() => Debug.Log("Robot fires lasers!");
+}
+
+// Factory Class
+public class EnemyFactory
+{
+    public static Enemy CreateEnemy(string type)
+    {
+        return type switch
+        {
+            "Zombie" => new Zombie(),
+            "Robot" => new Robot(),
+            _ => null
+        };
+    }
+}
+
+// Usage in Unity
+public class GameController : MonoBehaviour
+{
+    void Start()
+    {
+        Enemy zombie = EnemyFactory.CreateEnemy("Zombie");
+        zombie.Attack();
+    }
+}
